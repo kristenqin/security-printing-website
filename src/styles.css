@@ -1,0 +1,23 @@
+
+@import "tailwindcss";
+
+@theme {
+  /* 自定义颜色 */
+  --color-primary-red: #96310c;
+  --color-bg-light: #e8e8eb;
+  --color-bg-dark: #33323d;
+  --color-footer-dark: #1a1a1c;
+  --color-text-gray: #726766;
+  --color-accent-orange: #e86621;
+  --color-silver: #c0c0c0;
+  
+  /* 自定义字体 */
+  --font-family-helvetica: Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-helvetica);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
