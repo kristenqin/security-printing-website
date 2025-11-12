@@ -10,7 +10,10 @@ const Header = () => {
         </div>
         
         {/* Navigation */}
-        <nav className="bg-white bg-opacity-20 rounded px-6 py-6 flex items-center gap-8">
+        <nav 
+          className="rounded px-6 py-6 flex items-center gap-8 h-[70px]"
+          style={{ backgroundColor: 'rgba(192, 192, 192, 0.2)' }}
+        >
           <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
             Top
           </a>
