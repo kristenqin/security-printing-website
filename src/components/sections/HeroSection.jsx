@@ -29,13 +29,13 @@ const HeroSection = () => {
           />
           
           {/* View More Button - z-index:2, left:341px;top:138px */}
-          <div className="absolute left-85 top-34 flex flex-row gap-0 justify-start items-end z-20">
-            <span className="w-19 h-4 font-helvetica text-sm text-black">View More</span>
-            <div className="w-4 h-4 flex-shrink-0 overflow-hidden">
+          <div className="absolute left-85 top-34 flex flex-row gap-0.5 justify-start items-center z-20">
+            <span className="font-helvetica text-base text-black">View More</span>
+            <div className="w-4 h-4 flex items-center justify-center">
               <img 
                 src={chevronRight} 
                 alt="Arrow Right" 
-                className="absolute left-1 top-1 w-1 h-2"
+                className="w-1 h-2"
               />
             </div>
           </div>
