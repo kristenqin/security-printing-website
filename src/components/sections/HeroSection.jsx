@@ -19,13 +19,13 @@ const HeroSection = () => {
           </p>
         </div>
         
-        {/* Technology Card - Right side - width: 455px, height: 179px */}
-        <div className="w-full lg:w-114 h-45 flex-shrink-0 relative">
+        {/* Technology Card - Right side - 455px × 179px */}
+        <div className="w-114 h-45 flex-shrink-0 relative">
           {/* SVG Background */}
           <img 
             src={techCardBg} 
             alt="Technology Card Background" 
-            className="absolute left-0 top-0 w-full h-full"
+            className="absolute left-0 top-0 w-114 h-45"
           />
           
           {/* View More Button - positioned absolutely */}
