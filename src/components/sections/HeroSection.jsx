@@ -21,15 +21,15 @@ const HeroSection = () => {
         
         {/* Technology Card - Right side - 455px × 179px */}
         <div className="w-114 h-45 flex-shrink-0 relative">
-          {/* SVG Background */}
+          {/* SVG Background - z-index:1 */}
           <img 
             src={techCardBg} 
             alt="Technology Card Background" 
-            className="absolute left-0 top-0 w-114 h-45"
+            className="absolute left-0 top-0 w-114 h-45 z-10"
           />
           
-          {/* View More Button - positioned absolutely */}
-          <div className="absolute left-85 top-34 flex flex-row gap-0 justify-start items-end">
+          {/* View More Button - z-index:2, left:341px;top:138px */}
+          <div className="absolute left-85 top-34 flex flex-row gap-0 justify-start items-end z-20">
             <span className="w-19 h-4 font-helvetica text-sm text-black">View More</span>
             <div className="w-4 h-4 flex-shrink-0 overflow-hidden">
               <img 
@@ -40,8 +40,8 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Technology Content */}
-          <div className="absolute left-3 top-5 w-83 flex flex-col gap-5 justify-start items-start">
+          {/* Technology Content - z-index:3, left:13px;top:20px;width:333px */}
+          <div className="absolute left-3 top-5 w-83 flex flex-col gap-5 justify-start items-start z-30">
             <p className="w-83 h-3 font-helvetica text-xs text-black">
               Lasted Technology
             </p>
