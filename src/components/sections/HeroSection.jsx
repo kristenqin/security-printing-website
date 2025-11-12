@@ -7,13 +7,13 @@ const HeroSection = () => {
   return (
     <section className="bg-primary-red text-white">
       {/* Main Content Area - matches data-layer-id="163:6139" */}
-      <div className="h-220 flex flex-row gap-16 lg:gap-66 justify-start items-end px-4 sm:px-8 lg:px-18 pb-57">
+      <div className="h-220 flex flex-row gap-66 justify-start items-end px-18 pb-57">
         {/* Mission Text - Left side - width: 787px */}
-        <div className="w-full lg:w-197 flex flex-col gap-4 lg:gap-4 justify-start items-start">
-          <h1 className="w-full h-14 font-helvetica font-bold text-2xl sm:text-3xl lg:text-5xl xl:text-6xl leading-tight text-white">
+        <div className="w-197 flex flex-col gap-4 justify-start items-start">
+          <h1 className="w-197 h-14 font-helvetica font-bold text-5xl leading-tight text-white">
             INNOVATIVE SECURITY PRINTING
           </h1>
-          <p className="w-172 h-17 font-helvetica text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed text-white">
+          <p className="w-172 h-17 font-helvetica text-xl leading-relaxed text-white">
             Safeguarding national tax governance security with innovative anti-counterfeiting technology, 
             becoming a trusted strategic partner for governments around the world!
           </p>
