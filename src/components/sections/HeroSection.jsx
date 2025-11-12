@@ -45,22 +45,20 @@ const HeroSection = () => {
             <p className="w-83 h-3 font-helvetica text-xs text-black">
               Lasted Technology
             </p>
-            <div className="w-full flex flex-row gap-6 justify-start items-center">
-              {/* Technology Image */}
-              <div className="w-42 h-26 flex-shrink-0">
-                <img 
-                  src={intaglioTech} 
-                  alt="INTAGLIO Technology" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            {/* Technology details - gap:26px */}
+            <div className="w-83 flex flex-row gap-7 justify-start items-start">
+              {/* Technology Image - 168px × 102px, using background-image style */}
+              <div 
+                className="w-42 h-26 flex-shrink-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${intaglioTech})` }}
+              />
               
-              {/* Technology Text */}
+              {/* Technology Text - 228px */}
               <div className="w-57 flex flex-col gap-1 justify-start items-start">
-                <h3 className="w-57 h-7 font-helvetica font-bold text-2xl text-black">
+                <h3 className="w-57 h-7 font-helvetica font-normal text-2xl text-black">
                   INTAGLIO
                 </h3>
-                <p className="w-57 h-9 font-helvetica text-base text-black leading-tight">
+                <p className="w-57 h-9 font-helvetica font-normal text-base text-black leading-tight">
                   3D True Color Dynamic Depth Effect
                 </p>
               </div>
