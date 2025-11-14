@@ -1,8 +1,31 @@
-import React from 'react'
+import React, { useRef } from 'react';
+import { useSlideIn } from '../../hooks/animations';
+import NavItem from './NavItem';
 
 const Header = () => {
+  const headerRef = useRef();
+  
+  useSlideIn(headerRef, {
+    direction: 'top',
+    distance: '100%',
+    duration: 0.6,
+    delay: 1,
+    ease: 'power3.out',
+    opacity: true
+  });
+  
+  const navItems = [
+    { label: 'Top', href: '#', active: true },
+    { label: 'Solutions', href: '#' },
+    { label: 'News', href: '#' },
+    { label: 'Products', href: '#' },
+    { label: 'Tech & Design +', href: '#' },
+    { label: 'Business', href: '#' },
+    { label: 'Contact', href: '#' }
+  ];
+  
   return (
-    <header className="bg-primary-red w-full">
+    <header ref={headerRef} className="w-full relative z-20" style={{ opacity: 0 }}>
       <div className="flex items-center justify-between px-10 py-9">
         {/* Logo */}
         <div className="text-white font-helvetica font-bold text-xl">
@@ -14,27 +37,11 @@ const Header = () => {
           className="rounded px-6 py-6 flex items-center gap-8 h-[70px]"
           style={{ backgroundColor: 'rgba(192, 192, 192, 0.2)' }}
         >
-          <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
-            Top
-          </a>
-          <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
-            Solutions
-          </a>
-          <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
-            News
-          </a>
-          <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
-            Products
-          </a>
-          <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
-            Tech & Design +
-          </a>
-          <a href="#" className="text-white font-helvetica text-base hover:opacity-80">
-            Business
-          </a>
-          <a href="#" className="text-white font-helvetica text-base font-bold hover:opacity-80">
-            Contact
-          </a>
+          {navItems.map((item, index) => (
+            <NavItem key={index} href={item.href} isActive={item.active}>
+              {item.label}
+            </NavItem>
+          ))}
           
           {/* Language Switch */}
           <div className="flex items-center gap-2">
@@ -49,7 +56,7 @@ const Header = () => {
         </nav>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
