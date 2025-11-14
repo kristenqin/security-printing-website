@@ -5,7 +5,7 @@ import chevronRight from '../../assets/images/chevron-right.svg'
 
 const HeroSection = () => {
   return (
-    <section className="bg-primary-red text-white">
+    <section className="text-white">
       {/* Main Content Area - matches data-layer-id="163:6139" */}
       <div className="h-220 flex flex-row gap-66 justify-start items-end px-18 pb-57">
         {/* Mission Text - Left side - width: 787px */}

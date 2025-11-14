@@ -38,7 +38,7 @@ const NewsSection = () => {
   ]
 
   return (
-    <section className="bg-primary-red text-white">
+    <section className="text-white">
       <div className="px-4 sm:px-8 lg:px-18 pt-20 pb-45">
         {/* Top Divider Line */}
         <div className="w-full h-px mb-0">

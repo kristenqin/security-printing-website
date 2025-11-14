@@ -28,7 +28,7 @@ const ServicesSection = () => {
   ]
 
   return (
-    <section className="bg-bg-light text-black">
+    <section id="services" className="bg-bg-light text-black">
       <div className="px-4 sm:px-8 lg:px-20 py-24">
         {/* Content Container */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 lg:gap-16">
