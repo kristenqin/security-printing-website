@@ -68,30 +68,33 @@ echo "重启Claude Code后，即可通过自然语言获取ReactBits组件代码
 
 ### **第二阶段：架构规划**
 
-#### 3. 创建动效相关目录结构
+#### 3. 创建动效相关目录结构（基于关注点分离原则）
 ```bash
-# 3.1 创建动画组件目录
-mkdir -p src/components/animations
-
-# 3.2 创建动效相关hooks目录
+# 3.1 创建可复用动画Hooks目录（核心）
 mkdir -p src/hooks/animations
 
-# 3.3 创建动效工具函数目录
+# 3.2 创建动画配置和预设目录
 mkdir -p src/utils/animations
 
-# 3.4 创建动效配置目录
-mkdir -p src/config/animations
-
-# 3.5 创建动效文档目录
+# 3.3 创建动效文档目录
 mkdir -p docs/animations
+
+# 3.4 背景动效组件目录（ReactBits等特殊组件）
+mkdir -p src/components/animations
 ```
 
+**目录用途说明**：
+- `src/hooks/animations/` - 可复用的动画Hooks（如useSlotMachineFlip）
+- `src/utils/animations/` - 动画预设配置、缓动函数、常量
+- `src/components/animations/` - 特殊动画组件（如ReactBits背景）
+- `docs/animations/` - 动效规范文档
+
 #### 4. 建立文档结构
-需要创建以下文档文件：
-- `docs/animations/ANIMATION_DEVELOPMENT_WORKFLOW.md` - 动效开发工作流程
-- `docs/animations/GSAP_BEST_PRACTICES.md` - GSAP使用最佳实践
-- `docs/animations/PERFORMANCE_GUIDELINES.md` - 性能优化指南
-- ✅ `docs/REACTBITS_CONFIGURATION_GUIDE.md` - ReactBits完整配置指南（已完成）
+已完成的核心文档：
+- ✅ `docs/animations/ANIMATION_ARCHITECTURE.md` - 动画架构规范（核心文档）
+- ✅ `docs/animations/ANIMATION_ANALYSIS_COLLABORATION_WORKFLOW.md` - 动效分析协作流程
+- ✅ `docs/animations/HEADER_NAVIGATION_ANIMATION.md` - Header导航动效规范
+- ✅ `docs/REACTBITS_CONFIGURATION_GUIDE.md` - ReactBits完整配置指南
 
 ### **第三阶段：技术方案架构**
 
