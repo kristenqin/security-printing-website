@@ -1,5 +1,6 @@
 import React from 'react'
 import chevronRightBlack from '../../assets/images/chevron-right-black.svg'
+import AnimatedButton from '../common/AnimatedButton'
 
 const PartnersSection = () => {
   const businessPrinciples = [
@@ -39,14 +40,13 @@ const PartnersSection = () => {
               </h2>
               
               {/* Business Button */}
-              <div className="inline-flex items-center justify-between px-5 py-4 rounded-full w-45 h-11 bg-white cursor-pointer hover:opacity-80 transition-opacity">
-                <span className="font-helvetica text-base text-black">Business</span>
-                <img 
-                  src={chevronRightBlack} 
-                  alt="Arrow Right" 
-                  className="w-4 h-4"
-                />
-              </div>
+              <AnimatedButton
+                icon={chevronRightBlack}
+                textColor="black"
+                className="bg-white"
+              >
+                Business
+              </AnimatedButton>
             </div>
             
             {/* Right Side - Description */}

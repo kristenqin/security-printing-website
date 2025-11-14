@@ -1,6 +1,7 @@
 import React from 'react'
 import lineDivider from '../../assets/images/line-divider.svg'
 import chevronRightWhite from '../../assets/images/chevron-right-white.svg'
+import AnimatedButton from '../common/AnimatedButton'
 
 const NewsSection = () => {
   // 新闻数据
@@ -58,17 +59,13 @@ const NewsSection = () => {
             </h2>
             
             {/* News Button */}
-            <div 
-              className="inline-flex items-center justify-between px-5 py-4 rounded-full w-45 h-11 cursor-pointer hover:opacity-80 transition-opacity"
+            <AnimatedButton
+              icon={chevronRightWhite}
+              textColor="white"
               style={{ backgroundColor: 'rgba(161, 161, 161, 0.2)' }}
             >
-              <span className="font-helvetica text-base text-white">News</span>
-              <img 
-                src={chevronRightWhite} 
-                alt="Arrow Right" 
-                className="w-4 h-4"
-              />
-            </div>
+              News
+            </AnimatedButton>
           </div>
           
           {/* Right Side - News List */}

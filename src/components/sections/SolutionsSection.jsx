@@ -1,5 +1,6 @@
 import React from 'react'
 import chevronRightWhite from '../../assets/images/chevron-right-white.svg'
+import AnimatedButton from '../common/AnimatedButton'
 import solution1 from '../../assets/images/solution-1.png'
 import solution2 from '../../assets/images/solution-2.png'
 import solution3 from '../../assets/images/solution-3.png'
@@ -20,17 +21,13 @@ const SolutionsSection = () => {
               </h2>
               
               {/* Solutions Button */}
-              <div 
-                className="inline-flex items-center justify-between px-5 py-4 rounded-full w-45 h-11 cursor-pointer hover:opacity-80 transition-opacity"
+              <AnimatedButton
+                icon={chevronRightWhite}
+                textColor="white"
                 style={{ backgroundColor: 'rgba(161, 161, 161, 0.2)' }}
               >
-                <span className="font-helvetica text-base text-white">Solutions</span>
-                <img 
-                  src={chevronRightWhite} 
-                  alt="Arrow Right" 
-                  className="w-4 h-4"
-                />
-              </div>
+                Solutions
+              </AnimatedButton>
             </div>
           </div>
           

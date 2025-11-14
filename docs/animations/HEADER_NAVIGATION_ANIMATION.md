@@ -2,11 +2,21 @@
 
 ## 📋 基本信息
 - **动效位置**: Header 导航栏
-- **触发条件**: 鼠标悬停 / 页面加载
+- **触发条件**: 鼠标悬停 / 页面加载 / 页面滚动
 - **优先级**: P1 (重要实现)
 - **复杂度**: 中等
-- **可复用性**: 高（可用于导航、按钮、链接、卡片等）
-- **技术选择**: GSAP
+- **可复用性**: 部分可复用（导航悬停效果可复用，滚动行为为全局特定）
+- **技术选择**: GSAP + Intersection Observer
+
+---
+
+## 📝 动效概览
+
+Header包含三个主要动效：
+
+1. **导航项老虎机翻转**（可复用Hook） - 鼠标悬停交互
+2. **Header入场下滑**（可复用Hook） - 页面加载时
+3. **滚动时淡出行为**（全局实现） - Footer出现时淡出
 
 ---
 
@@ -471,14 +481,232 @@ export default Header;
 
 ---
 
+## 🎨 动效3: 滚动时淡出行为
+
+### 用户观察描述
+> "滚动页面时Header一直固定在顶部可见，直到Footer（版权信息）出现时，Header开始淡出消失。向上滚动时，Footer离开视口，Header重新淡入显示。"
+
+### 动效目的
+- **功能目的**: 避免Header遮挡Footer内容，提供更好的页面浏览体验
+- **用户体验**: 页面底部有完整的视觉空间
+- **情感传达**: 流畅自然的交互感受
+
+### 时序控制
+```javascript
+{
+  // Footer进入视口
+  footerEnter: {
+    触发: "Footer刚开始出现",
+    效果: "Header淡出",
+    时长: "0.5s",
+    缓动: "power2.out"
+  },
+  
+  // Footer离开视口（向上滚动）
+  footerLeave: {
+    触发: "Footer离开视口",
+    效果: "Header淡入",
+    时长: "0.5s",
+    缓动: "power2.out"
+  }
+}
+```
+
+---
+
+## 🔧 全局实现方案（非复用Hook）
+
+### 实现说明
+
+**为什么不做成Hook？**
+- 这是Header组件特定的全局行为
+- 依赖特定的DOM结构（Header + Footer）
+- 不需要在其他地方复用
+- 直接在Header组件中实现更清晰
+
+### 实现代码
+
+```jsx
+// components/Header/Header.jsx
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { useSlideIn } from '@/hooks/animations';
+import NavItem from './NavItem';
+
+const Header = () => {
+  const headerRef = useRef();
+  
+  // 动效1: Header入场动画（可复用Hook）
+  useSlideIn(headerRef, {
+    direction: 'top',
+    distance: '100%',
+    duration: 0.6,
+    delay: 1,
+    ease: 'power3.out',
+    opacity: true
+  });
+  
+  // 动效3: 滚动时淡出行为（全局实现）
+  useEffect(() => {
+    const footer = document.querySelector('footer'); // 或使用特定的选择器
+    if (!footer || !headerRef.current) return;
+    
+    // 创建Intersection Observer监听Footer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Footer进入视口 → Header淡出
+            gsap.to(headerRef.current, {
+              opacity: 0,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          } else {
+            // Footer离开视口 → Header淡入
+            gsap.to(headerRef.current, {
+              opacity: 1,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
+        });
+      },
+      {
+        threshold: 0, // Footer刚开始出现就触发
+        rootMargin: '0px'
+      }
+    );
+    
+    observer.observe(footer);
+    
+    // 清理
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+  
+  const navItems = [
+    { label: 'Top', href: '#top', active: true },
+    { label: 'Company', href: '#company' },
+    { label: 'News', href: '#news' },
+    { label: 'Business', href: '#business' },
+    { label: 'Tech & Design +', href: '#tech' },
+    { label: 'Works', href: '#works' },
+    { label: 'Careers', href: '#careers', external: true },
+    { label: 'Contact', href: '#contact' },
+  ];
+  
+  return (
+    <header ref={headerRef} className="header">
+      <nav className="nav-container">
+        {navItems.map((item, index) => (
+          <NavItem 
+            key={index}
+            href={item.href}
+            isActive={item.active}
+            external={item.external}
+          >
+            {item.label}
+          </NavItem>
+        ))}
+        
+        <div className="nav-lang">
+          <span>JP</span>
+          <span className="separator">|</span>
+          <span>EN</span>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
+```
+
+### 优化版本（更精确控制）
+
+如果需要更平滑的渐变效果（根据Footer可见程度调整Header透明度）：
+
+```jsx
+// 滚动时淡出行为 - 渐进式版本
+useEffect(() => {
+  const footer = document.querySelector('footer');
+  if (!footer || !headerRef.current) return;
+  
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        // 根据Footer的可见比例计算Header透明度
+        // intersectionRatio: 0 (完全不可见) → 1 (完全可见)
+        const opacity = 1 - entry.intersectionRatio;
+        
+        gsap.to(headerRef.current, {
+          opacity: opacity,
+          duration: 0.3,
+          ease: 'none' // 跟随滚动，不需要缓动
+        });
+      });
+    },
+    {
+      threshold: Array.from({ length: 21 }, (_, i) => i * 0.05), // 0, 0.05, 0.1, ..., 1
+      rootMargin: '0px'
+    }
+  );
+  
+  observer.observe(footer);
+  
+  return () => {
+    observer.disconnect();
+  };
+}, []);
+```
+
+### 配置说明
+
+```javascript
+// Intersection Observer 配置
+{
+  // 触发阈值
+  threshold: 0,  // Footer刚出现就触发（推荐）
+  // 或
+  threshold: [0, 0.25, 0.5, 0.75, 1],  // 渐进式淡出
+  
+  // 根边距（提前/延后触发）
+  rootMargin: '0px',        // 默认：Footer刚进入视口
+  // 或
+  rootMargin: '-100px 0px', // 提前100px触发
+}
+
+// GSAP动画配置
+{
+  opacity: 0,        // 目标透明度
+  duration: 0.5,     // 动画时长
+  ease: 'power2.out' // 缓动函数
+}
+```
+
+---
+
 ## 🏗️ 架构原则
 
 ### 关注点分离
 - ✅ `useSlotMachineFlip` Hook不关心DOM结构
 - ✅ `useSlideIn` Hook不关心DOM结构
+- ✅ 滚动淡出行为直接在Header组件实现（特定业务逻辑）
 - ✅ 静态样式完全由CSS控制
-- ✅ 动画行为完全由GSAP Hook控制
-- ✅ Hook可以应用到任何元素
+- ✅ 动画行为完全由GSAP控制
+
+### 可复用 vs 特定实现
+
+**可复用Hook**:
+- ✅ `useSlotMachineFlip` - 可用于导航、按钮、链接、卡片等
+- ✅ `useSlideIn` - 可用于各种滑入场景
+
+**特定实现**:
+- 🎯 滚动淡出行为 - Header特定的全局交互
+- 不需要抽象成Hook
+- 直接在组件中实现更清晰
 
 ### 可复用场景
 
@@ -513,6 +741,8 @@ export default Header;
 - [ ] 选中项显示橙色背景且不响应悬停
 - [ ] Header 延迟1s后从屏幕外下滑进入 (0.6s)
 - [ ] Header 入场有淡入效果
+- [ ] 滚动到Footer时Header正确淡出
+- [ ] 向上滚动Footer离开时Header正确淡入
 
 ### 性能验收
 - [ ] 动画流畅度保持 60fps

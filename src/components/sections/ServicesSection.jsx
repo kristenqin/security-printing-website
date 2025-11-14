@@ -4,6 +4,7 @@ import arrowUpRightWhite from '../../assets/images/arrow-up-right-white.svg'
 import service1 from '../../assets/images/service-1.png'
 import service2 from '../../assets/images/service-2.png'
 import service3 from '../../assets/images/service-3.png'
+import AnimatedButton from '../common/AnimatedButton'
 
 const ServicesSection = () => {
   const services = [
@@ -39,14 +40,13 @@ const ServicesSection = () => {
             </h2>
             
             {/* Tech & Design Button */}
-            <div className="inline-flex items-center justify-between px-5 py-4 rounded-full w-45 h-11 bg-white cursor-pointer hover:opacity-80 transition-opacity">
-              <span className="font-helvetica text-base text-black">Tech & Design</span>
-              <img 
-                src={chevronRightBlack} 
-                alt="Arrow Right" 
-                className="w-4 h-4"
-              />
-            </div>
+            <AnimatedButton
+              icon={chevronRightBlack}
+              textColor="black"
+              className="bg-white"
+            >
+              Tech & Design
+            </AnimatedButton>
           </div>
           
           {/* Right Side - Services Cards */}
