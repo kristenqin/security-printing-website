@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useSlotMachineFlip } from '../../hooks/animations'
 import intaglioTech from '../../assets/images/intaglio-tech.png'
 import techCardBg from '../../assets/images/tech-card-bg.svg'
 import chevronRight from '../../assets/images/chevron-right.svg'
 
 const HeroSection = () => {
+  const viewMoreWhiteRef = useRef();
+  const viewMoreOrangeRef = useRef();
+  
+  const { play, reverse } = useSlotMachineFlip(
+    { white: viewMoreWhiteRef, orange: viewMoreOrangeRef },
+    { duration: 0.3 }
+  );
+  
   return (
     <section className="text-white">
       {/* Main Content Area - matches data-layer-id="163:6139" */}
@@ -29,8 +38,27 @@ const HeroSection = () => {
           />
           
           {/* View More Button - z-index:2, left:341px;top:138px */}
-          <div className="absolute left-85 top-34 flex flex-row gap-0.5 justify-start items-center z-20">
-            <span className="font-helvetica text-base text-black">View More</span>
+          <div 
+            className="absolute left-85 top-34 flex flex-row gap-0.5 justify-start items-center z-20 cursor-pointer"
+            onMouseEnter={play}
+            onMouseLeave={reverse}
+          >
+            <div className="relative inline-block overflow-hidden" style={{ height: '1em', lineHeight: '1em' }}>
+              <span 
+                ref={viewMoreWhiteRef}
+                className="block font-helvetica text-base text-black whitespace-nowrap"
+                style={{ lineHeight: '1em' }}
+              >
+                View More
+              </span>
+              <span 
+                ref={viewMoreOrangeRef}
+                className="block font-helvetica text-base text-black whitespace-nowrap absolute left-0"
+                style={{ top: '1em', lineHeight: '1em' }}
+              >
+                View More
+              </span>
+            </div>
             <div className="w-4 h-4 flex items-center justify-center">
               <img 
                 src={chevronRight} 
