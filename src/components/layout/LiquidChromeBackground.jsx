@@ -48,9 +48,9 @@ const LiquidChromeBackground = () => {
           }}
         >
           <LiquidChrome
-            baseColor={[0.9, 0.35, 0.1]}
-            speed={0.4}
-            amplitude={0.7}
+            baseColor={[0.3, 0.1, 0]}
+            speed={0.3}
+            amplitude={0.3}
             frequencyX={2.2}
             frequencyY={1.6}
             interactive={true}
